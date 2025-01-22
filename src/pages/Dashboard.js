@@ -54,10 +54,15 @@ const NAVIGATION = [
     title: 'Integrations',
     icon: <LayersIcon />,
   },
+  {
+    segment: 'test',
+    title: 'test',
+    icon: <LayersIcon />,
+  },
 ];
 
 const demoTheme = extendTheme({
-  colorSchemes: { light: true, dark: true },
+  colorSchemes: { light: true, dark: true},
   colorSchemeSelector: 'class',
   breakpoints: {
     values: {
@@ -94,7 +99,7 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 export default function Dashboard(props) {
   const { window } = props;
 
-  const router = useDemoRouter('/dashboard');
+  const router = useDemoRouter('/flights');
 
   // Remove this const when copying and pasting into your project.
   const demoWindow = window ? window() : undefined;
@@ -108,7 +113,7 @@ export default function Dashboard(props) {
     >
       <DashboardLayout>
         <PageContainer>
-          <Grid container spacing={1}>
+          {/* <Grid container spacing={1}>
             <Grid size={5} />
             <Grid size={12}>
               <Skeleton height={14} />
@@ -142,7 +147,7 @@ export default function Dashboard(props) {
             <Grid size={3}>
               <Skeleton height={100} />
             </Grid>
-          </Grid>
+          </Grid> */}
         </PageContainer>
       </DashboardLayout>
     </AppProvider>

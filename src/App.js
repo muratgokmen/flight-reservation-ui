@@ -6,13 +6,15 @@ import Seats from './pages/Seats';
 import Confirmation from './pages/Confirmation';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
+import SignIn from './pages/sign-in/SignIn';
 
 const App = () => {
     return (
         <div>
             <div className="container mt-4">
                 <Routes>
-                    <Route path="/" element={<Login />} />
+                    {/* <Route path="/" element={<Login />} /> */}
+                    <Route path="/" element={<SignIn />} /> 
                     <Route path="/flights" element={<Flights />} />
                     <Route path="/seats/:flightId" element={<Seats />} />
                     <Route path="/confirmation" element={<Confirmation />} /> 
