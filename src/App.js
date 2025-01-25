@@ -1,28 +1,32 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Flights from './pages/Flights';
-import Seats from './pages/Seats';
-import Confirmation from './pages/Confirmation';
-import Header from './components/Header';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import SignIn from './pages/sign-in/SignIn';
+import Flights from './pages/Flights';
+import Seats from './pages/Seats';
+import Navbar from './components/Navbar';
+import DashboardLayoutBasic from './pages/Dashboard';
 
-const App = () => {
-    return (
-        <div>
-            <div className="container mt-4">
-                <Routes>
-                    {/* <Route path="/" element={<Login />} /> */}
-                    <Route path="/" element={<SignIn />} /> 
-                    <Route path="/flights" element={<Flights />} />
-                    <Route path="/seats/:flightId" element={<Seats />} />
-                    <Route path="/confirmation" element={<Confirmation />} /> 
-                    <Route path="/dashboard" element={<Dashboard />} /> 
-                </Routes>
-            </div>
-            </div>
-    );
-};
+function App() {
+  return (
+   <Router>
+      <Routes>
+      <Route path="/sign-in" element={<SignIn />} />
+
+      <Route path="/" element={<Dashboard />}>
+      <Route path="/flights" element={<Flights/> } />
+     
+            {/* Diğer alt rotalar... */}
+          </Route>
+
+      </Routes>
+
+
+   </Router>
+
+
+     
+ 
+  );
+}
 
 export default App;

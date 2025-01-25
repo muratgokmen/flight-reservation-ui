@@ -19,7 +19,8 @@ import AppTheme from '../shared-theme/AppTheme';
 import ForgotPassword from './components/ForgetPassword';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Dashboard from '../Dashboard';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../redux/authSlice';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -79,6 +80,7 @@ export default function SignIn(props) {
   };
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault(); 
@@ -87,26 +89,24 @@ export default function SignIn(props) {
     const password = data.get('password');
     
     try {
-      axios.post('http://localhost:8080/api/users/login', {
-        username,
-        password
-      }, {
-          headers: {
-              'Content-Type': 'application/json'
-          }
-        //  withCredentials: true  // Eğer çerezler (cookies) veya kimlik doğrulama bilgileri gönderiliyorsa
-      }).then(response => {
-          window.console.log("token", response.data.token);
-         // dispatch(setToken(response.data.token)); // Dispatch setToken action
-         navigate('/dashboard');
-         //navigate('/flights');
-      }).catch(error => {
-          console.error('Login failed', error);
-      });
-  } catch (error) {
-      console.error('Login failed', error);
-  }
-
+        axios.post('http://localhost:8080/api/users/login', {
+            username,
+            password
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            const token = response.data.token;
+            console.log("Received token:", token);
+            dispatch(setToken(token));
+            navigate('/');
+        }).catch(error => {
+            console.error('Login failed', error);
+        });
+    } catch (error) {
+        console.error('Login failed', error);
+    }
   };
 
   const validateInputs = () => {

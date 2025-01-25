@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { resetState } from '../redux/authSlice'; // State'i sıfırlamak için gerekli aksiyon
 
 const Seats = ({ flightId }) => {
     const [seats, setSeats] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // Koltuk bilgilerini API'den çekme
@@ -17,7 +20,7 @@ const Seats = ({ flightId }) => {
         };
 
         fetchSeats();
-    }, [flightId]);  // flightId değiştiğinde koltuk bilgilerini yeniden çek
+    }, [flightId]); // dispatch'i kaldırdık
 
     const handleSelectSeat = (seatId) => {
         setSelectedSeat(seatId);

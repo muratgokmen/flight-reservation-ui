@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './Flights.css';  // Stiller için ayrı bir CSS dosyası
+import { resetState } from '../redux/authSlice'; // State'i sıfırlamak için gerekli aksiyon
 
 const Flights = () => {
-
     const [flights, setFlights] = useState([]);
     const token = useSelector(state => state.auth.token);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    window.console.log("token that came to flight", token);
 
     useEffect(() => {
         if (token) {
@@ -20,8 +25,14 @@ const Flights = () => {
             }).catch(error => {
                 console.error('Error fetching flights', error);
             });
+        } else {
+            console.warn("Token is null or undefined");
         }
     }, [token]);
+
+    const handleBookClick = (flightId) => {
+        navigate(`/seats/${flightId}`);
+    };
 
     return (
         <div className="flights-container">
@@ -45,7 +56,14 @@ const Flights = () => {
                             <td>{flight.duration}</td>
                             <td>{flight.arrival}</td>
                             <td>${flight.price}</td>
-                            <td><button className="book-button">Book</button></td>
+                            <td>
+                                <button 
+                                    className="book-button" 
+                                    onClick={() => handleBookClick(flight.id)}
+                                >
+                                    Book
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
